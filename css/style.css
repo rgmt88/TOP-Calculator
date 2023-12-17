@@ -1,3 +1,11 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Sets the height of the body to the full viewport height */
+    margin: 0; /* Removes default margin */
+}
+
 .calculator-container {
     height: 600px;
     width: 400px;
@@ -26,11 +34,14 @@
     width: 320px; /* Adjusted for padding */
     border: none;
     background-color: #ffffff;
-    text-align: right;
+    text-align: right; /* Right align the text */
     padding: 0 15px;
     border-radius: 5px;
-    font-size: 24px;
-    color: #333;
+    font-size: 24px; /* Larger font size for visibility */
+    color: #333; /* Darker text color for contrast */
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
 }
 
 .row1-container {
