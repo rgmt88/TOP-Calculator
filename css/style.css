@@ -1,0 +1,93 @@
+.calculator-container {
+    height: 600px;
+    width: 400px;
+    margin: 10px auto; /* Center the calculator horizontally */
+    background-color: #d4d4d4;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+}
+
+.result-container {
+    height: 100px;
+    width: 350px;
+    margin: 0 auto; /* Center the result container */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f2f2f2; /* Light background for the result area */
+    border-radius: 5px;
+}
+
+.result {
+    height: 70px;
+    width: 320px; /* Adjusted for padding */
+    border: none;
+    background-color: #ffffff;
+    text-align: right;
+    padding: 0 15px;
+    border-radius: 5px;
+    font-size: 24px;
+    color: #333;
+}
+
+.row1-container {
+    height: 100px;
+    width: 350px;
+    margin: 0 auto; /* Center the row container */
+    display: flex;
+    justify-content: space-between; /* Evenly space buttons */
+}
+
+.numbers, .operators {
+    height: 70px;
+    width: 80px; /* Width for individual buttons */
+    margin: 5px;
+    background-color: #e6e6e6; /* Default button color */
+    border: none;
+    border-radius: 5px;
+    font-size: 20px;
+    color: #333;
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s; /* Transition for interaction */
+}
+
+.numbers:hover, .operators:hover {
+    background-color: #cccccc; /* Color change on hover */
+}
+
+.clear {
+    background-color: #ff6666; /* Distinct color for 'C' button */
+}
+
+.operators {
+    background-color: #4da6ff; /* Different color for operator buttons */
+}
+
+/* ... existing styles ... */
+
+.numbers, .operators {
+    /* ... existing button styles ... */
+    /* Add a box-shadow for a 'pressed' effect */
+    box-shadow: 0 4px #999;
+}
+
+.numbers:active, .operators:active {
+    background-color: #bfbfbf; /* Change background color on click */
+    box-shadow: 0 2px #666; /* Adjust box-shadow to give a 'pressed' effect */
+    transform: translateY(2px); /* Slightly move the button down */
+}
+
+.clear:active {
+    background-color: #e60000; /* Different color for 'C' button when active */
+    box-shadow: 0 2px #666;
+    transform: translateY(2px);
+}
+
+.operators:active {
+    background-color: #3399ff; /* Different color for operator buttons when active */
+    box-shadow: 0 2px #666;
+    transform: translateY(2px);
+}
