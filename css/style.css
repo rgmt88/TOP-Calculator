@@ -52,7 +52,7 @@ body {
     justify-content: space-between; /* Evenly space buttons */
 }
 
-.numbers, .operators {
+.numbers, .operators, .clear, .equal {
     height: 70px;
     width: 80px; /* Width for individual buttons */
     margin: 5px;
@@ -65,7 +65,7 @@ body {
     transition: background-color 0.3s; /* Transition for interaction */
 }
 
-.numbers:hover, .operators:hover {
+.numbers:hover, .operators:hover, .clear:hover, .equal:hover {
     background-color: #cccccc; /* Color change on hover */
 }
 
@@ -79,13 +79,13 @@ body {
 
 /* ... existing styles ... */
 
-.numbers, .operators {
+.numbers, .operators, .clear, .equal {
     /* ... existing button styles ... */
     /* Add a box-shadow for a 'pressed' effect */
     box-shadow: 0 4px #999;
 }
 
-.numbers:active, .operators:active {
+.numbers:active, .operators:active, .equal:active {
     background-color: #bfbfbf; /* Change background color on click */
     box-shadow: 0 2px #666; /* Adjust box-shadow to give a 'pressed' effect */
     transform: translateY(2px); /* Slightly move the button down */
