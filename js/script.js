@@ -24,14 +24,19 @@ function operate(operator, num1, num2) {
             return add(num1, num2);
         case '-':
             return subtract(num1, num2);
-        case '*':
+        case 'x':
             return multiply(num1, num2);
         case '/':
             return divide(num1, num2);
         default:
             throw new Error("Invalid operator");
     }
-}
+};
+
+let formatter = new Intl.NumberFormat('en-US', {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+});
 
 function setupCalculator() {
     let currentValue = ""; 
@@ -42,15 +47,11 @@ function setupCalculator() {
     function performCalculation() {
         if (num1 !== null && currentValue !== "" && currentOperator) {
             let num2 = parseFloat(currentValue);
-            let result = operate(currentOperator, num1, num2);
-
-            let formatter = new Intl.NumberFormat('en-US', {
-                minimumFractionDigits: 2,
-                maximumFractionDigits: 2,
-            });
+            let result = formatter.format(operate(currentOperator, num1, num2));
 
             document.getElementById('result-display').innerText = formatter.format(result);
             calculationHistory += ` ${currentValue} = ${result}`;
+            document.getElementById('calc-history').innerText = calculationHistory;
             console.log(calculationHistory); 
             num1 = result; 
             currentValue = ""; 
@@ -72,6 +73,7 @@ function setupCalculator() {
         currentOperator = '';
         calculationHistory = "";
         document.getElementById('result-display').innerText = "0.00";
+        document.getElementById('calc-history').innerText = "0.00";
         console.log("Calculator cleared"); 
     });
 
@@ -94,16 +96,41 @@ function setupCalculator() {
                 }
                 currentOperator = operator.value;
                 calculationHistory += ` ${currentOperator}`;
+                document.getElementById('calc-history').innerText = calculationHistory;
                 console.log(calculationHistory);
                 currentValue = "";
             } else if (num1 !== null && !currentValue) {
                 currentOperator = operator.value;
                 calculationHistory = `${num1} ${currentOperator}`;
+                document.getElementById('calc-history').innerText = calculationHistory;
                 console.log(calculationHistory); 
             }
         });
     });
-}
+
+    const plusMinusButton = document.getElementById('pos-neg-button');
+    plusMinusButton.addEventListener('click', function() {
+        currentValue = formatter.format(currentValue * -1);
+        document.getElementById('result-display').innerText = currentValue;
+        calculationHistory = `${currentValue * -1} x -1 = ${currentValue}`;
+        document.getElementById('calc-history').innerText = calculationHistory;
+        console.log(calculationHistory);
+        num1 = parseFloat(currentValue);
+        calculationHistory = `${num1}`;
+    });
+
+    const percentageButton = document.getElementById('percentage-button');
+    percentageButton.addEventListener('click', function() {
+        currentValue = formatter.format(currentValue / 100);
+        document.getElementById('result-display').innerText = currentValue;
+        calculationHistory = `${currentValue * 100} / 100 = ${currentValue}`;
+        document.getElementById('calc-history').innerText = calculationHistory;
+        console.log(calculationHistory);
+        num1 = parseFloat(currentValue);
+        calculationHistory = `${num1}`;
+    });
+
+};
 
 document.addEventListener('DOMContentLoaded', setupCalculator);
 
