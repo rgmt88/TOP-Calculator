@@ -35,7 +35,7 @@ function operate(operator, num1, num2) {
 
 let formatter = new Intl.NumberFormat('en-US', {
     minimumFractionDigits: 2,
-    maximumFractionDigits: 2,
+    maximumFractionDigits: 4,
 });
 
 function setupCalculator() {
@@ -49,7 +49,7 @@ function setupCalculator() {
             let num2 = parseFloat(currentValue);
             let result = formatter.format(operate(currentOperator, num1, num2));
 
-            document.getElementById('result-display').innerText = formatter.format(result);
+            document.getElementById('result-display').innerText = (result);
             calculationHistory += ` ${currentValue} = ${result}`;
             document.getElementById('calc-history').innerText = calculationHistory;
             console.log(calculationHistory); 
@@ -110,24 +110,44 @@ function setupCalculator() {
 
     const plusMinusButton = document.getElementById('pos-neg-button');
     plusMinusButton.addEventListener('click', function() {
-        currentValue = formatter.format(currentValue * -1);
+        if (num1 !== null && !currentValue) {
+            let valueChange = num1 * -1;
+            document.getElementById('result-display').innerText = valueChange;
+            calculationHistory = `${valueChange * -1} x -1 = ${valueChange}`;
+            document.getElementById('calc-history').innerText = calculationHistory;
+            console.log(calculationHistory);
+            num1 = valueChange;
+            calculationHistory = `${num1}`;    
+        } else {
+            currentValue = formatter.format(currentValue * -1);
         document.getElementById('result-display').innerText = currentValue;
         calculationHistory = `${currentValue * -1} x -1 = ${currentValue}`;
         document.getElementById('calc-history').innerText = calculationHistory;
         console.log(calculationHistory);
         num1 = parseFloat(currentValue);
         calculationHistory = `${num1}`;
+        };
     });
 
     const percentageButton = document.getElementById('percentage-button');
     percentageButton.addEventListener('click', function() {
-        currentValue = formatter.format(currentValue / 100);
+        if (num1 !== null && !currentValue) {
+            let valueChange = num1 / 100;
+            document.getElementById('result-display').innerText = valueChange;
+            calculationHistory = `${valueChange * 100} / 100 = ${valueChange}`;
+            document.getElementById('calc-history').innerText = calculationHistory;
+            console.log(calculationHistory);
+            num1 = parseFloat(currentValue);
+            calculationHistory = `${num1}`;
+        } else {
+            currentValue = formatter.format(currentValue / 100);
         document.getElementById('result-display').innerText = currentValue;
         calculationHistory = `${currentValue * 100} / 100 = ${currentValue}`;
         document.getElementById('calc-history').innerText = calculationHistory;
         console.log(calculationHistory);
         num1 = parseFloat(currentValue);
         calculationHistory = `${num1}`;
+        };
     });
 
 };
