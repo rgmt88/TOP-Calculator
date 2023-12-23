@@ -47,14 +47,16 @@ function setupCalculator() {
     function performCalculation() {
         if (num1 !== null && currentValue !== "" && currentOperator) {
             let num2 = parseFloat(currentValue);
-            let result = formatter.format(operate(currentOperator, num1, num2));
+            let result = operate(currentOperator, num1, num2);
 
-            document.getElementById('result-display').innerText = (result);
-            calculationHistory += ` ${currentValue} = ${result}`;
+            num1 = result;
+            
+            document.getElementById('result-display').innerText = formatter.format(result);
+            calculationHistory += ` ${formatter.format(currentValue)} = ${formatter.format(result)}`;
             document.getElementById('calc-history').innerText = calculationHistory;
-            console.log(calculationHistory); 
-            num1 = result; 
+            console.log(calculationHistory);  
             currentValue = ""; 
+            currentOperator = '';
         } 
     };
 
@@ -62,7 +64,7 @@ function setupCalculator() {
     numberButtons.forEach(button => {
         button.addEventListener('click', function() {
             currentValue += this.value;
-            document.getElementById('result-display').innerText = currentValue;
+            document.getElementById('result-display').innerText = formatter.format(currentValue);
         });
     });
 
@@ -81,7 +83,7 @@ function setupCalculator() {
     equalButton.addEventListener('click', function() {
         performCalculation();
         currentOperator = '';
-        calculationHistory = `${num1}`; // Start a new history with the last result
+        calculationHistory = `${formatter.format(num1)}`; // Start a new history with the last result
     });
 
     const operatorsButtons = document.querySelectorAll('.operators');
@@ -90,7 +92,7 @@ function setupCalculator() {
             if (currentValue !== "") {
                 if (num1 === null) {
                     num1 = parseFloat(currentValue);
-                    calculationHistory = `${num1}`;
+                    calculationHistory = `${formatter.format(num1)}`;
                 } else if (currentOperator) {
                     performCalculation();
                 }
@@ -101,7 +103,7 @@ function setupCalculator() {
                 currentValue = "";
             } else if (num1 !== null && !currentValue) {
                 currentOperator = operator.value;
-                calculationHistory = `${num1} ${currentOperator}`;
+                calculationHistory = `${formatter.format(num1)} ${currentOperator}`;
                 document.getElementById('calc-history').innerText = calculationHistory;
                 console.log(calculationHistory); 
             }
@@ -111,42 +113,31 @@ function setupCalculator() {
     const plusMinusButton = document.getElementById('pos-neg-button');
     plusMinusButton.addEventListener('click', function() {
         if (num1 !== null && !currentValue) {
-            let valueChange = num1 * -1;
+            let valueChange = formatter.format(num1 * -1);
             document.getElementById('result-display').innerText = valueChange;
-            calculationHistory = `${valueChange * -1} x -1 = ${valueChange}`;
-            document.getElementById('calc-history').innerText = calculationHistory;
-            console.log(calculationHistory);
-            num1 = valueChange;
+            num1 = parseFloat(valueChange);
             calculationHistory = `${num1}`;    
         } else {
             currentValue = formatter.format(currentValue * -1);
-        document.getElementById('result-display').innerText = currentValue;
-        calculationHistory = `${currentValue * -1} x -1 = ${currentValue}`;
-        document.getElementById('calc-history').innerText = calculationHistory;
-        console.log(calculationHistory);
-        num1 = parseFloat(currentValue);
-        calculationHistory = `${num1}`;
+            document.getElementById('result-display').innerText = currentValue;
+            num1 = parseFloat(currentValue);
+            calculationHistory = `${num1}`;
         };
     });
 
     const percentageButton = document.getElementById('percentage-button');
     percentageButton.addEventListener('click', function() {
         if (num1 !== null && !currentValue) {
-            let valueChange = num1 / 100;
+            let valueChange = formatter.format(num1 / 100);
             document.getElementById('result-display').innerText = valueChange;
-            calculationHistory = `${valueChange * 100} / 100 = ${valueChange}`;
-            document.getElementById('calc-history').innerText = calculationHistory;
-            console.log(calculationHistory);
-            num1 = parseFloat(currentValue);
+
+            num1 = parseFloat(valueChange);
             calculationHistory = `${num1}`;
         } else {
             currentValue = formatter.format(currentValue / 100);
-        document.getElementById('result-display').innerText = currentValue;
-        calculationHistory = `${currentValue * 100} / 100 = ${currentValue}`;
-        document.getElementById('calc-history').innerText = calculationHistory;
-        console.log(calculationHistory);
-        num1 = parseFloat(currentValue);
-        calculationHistory = `${num1}`;
+            document.getElementById('result-display').innerText = currentValue;
+            num1 = parseFloat(currentValue);
+            calculationHistory = `${num1}`;
         };
     });
 
